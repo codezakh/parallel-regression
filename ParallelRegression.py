@@ -85,7 +85,7 @@ def predict(x,beta):
 	                y = <x,β>
 
     """
-    return np.inner(x, beta)
+    return np.dot(x, beta)
     pass
 
 
@@ -98,7 +98,7 @@ def f(x,y,beta):
 	         f(β;x,y) =  (y - <x,β>)^2
 
     """
-    pass
+    return (y - predict(x, beta)) ** 2
 
 
 
@@ -115,7 +115,7 @@ def localGradient(x,y,beta):
 
         The return value is  ∇f.
     """
-    pass
+    return -2 * (y - np.dot(x, beta)) * x
 
 
 
