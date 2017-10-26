@@ -1,4 +1,6 @@
+from __future__ import print_function
 import unittest
+import sys
 
 import numpy as np
 
@@ -18,5 +20,7 @@ class ParallelRegressionTestCase(unittest.TestCase):
         local_gradient = PR.localGradient(x, y, beta)
         estimated_gradient = PR.estimateGrad(lambda beta: PR.f(x, y, beta), beta,
         0.00001)
+        print('local gradient: {}'.format(local_gradient))
+        print('estimated gradient: {}'.format(estimated_gradient))
         for actual, expected in zip(local_gradient, estimated_gradient):
             self.assertLess(abs(actual-expected), 0.0001)
