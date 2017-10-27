@@ -139,7 +139,7 @@ def F(data,beta,lam = 0):
     n = data.count()
     mean_squared_error = data.map(
         lambda element: f(element[0], element[1], beta) / n).sum()
-    regulization_term = lam * np.linalg.norm(beta)
+    regulization_term = lam * np.dot(beta, beta)
     return mean_squared_error + regulization_term
 
 
