@@ -3,7 +3,7 @@ import sys
 import argparse
 import numpy as np
 from operator import add
-from time import time
+import time
 from pyspark import SparkContext
 
 
@@ -223,7 +223,27 @@ def train(data,beta_0, lam,max_iter,eps):
 	     -gradNorm: the norm of the gradient at the trained β, and
              -k: the number of iterations performed
     """
-    pass
+    current_iter = 0
+    tolerance = 50000
+    new_beta = beta_0
+    start_time = time.time()
+    while(current_iter < max_iter and tolerance > eps):
+        elapsed_time = time.time() - start_time
+        gradient_of_f_wrt_beta = gradient(data, new_beta, lam)
+        tolerance = np.dot(gradient_of_f_wrt_beta, gradient_of_f_wrt_beta)
+        gain = lineSearch(
+            lambda _beta: F(data, _beta, lam),
+            new_beta,
+            gradient_of_f_wrt_beta)
+        new_beta = new_beta - gain * gradient_of_f_wrt_beta
+        current_iter = current_iter + 1
+        training_error = F(data, new_beta, lam)
+        print '[{iterations}]{elapsed_time} F: {error}, Norm: {norm}'.format(
+            iterations=current_iter,
+            elapsed_time=0,
+            error=training_error,
+            norm=tolerance)
+    return beta, tolerance, current_iter
 
 
 if __name__ == "__main__":
