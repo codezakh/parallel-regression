@@ -243,7 +243,7 @@ def train(data,beta_0, lam,max_iter,eps):
             elapsed_time=0,
             error=training_error,
             norm=tolerance)
-    return beta, tolerance, current_iter
+    return new_beta, tolerance, current_iter
 
 
 if __name__ == "__main__":
@@ -284,7 +284,7 @@ if __name__ == "__main__":
         beta, gradNorm, k = train(data,beta_0=beta0,lam=args.lam,max_iter=args.max_iter,eps=args.eps)
 	print 'Algorithm ran for',k,'iterations. Converged:',gradNorm<args.eps
 	print 'Saving trained β in',args.beta
-        writeBeta(args.beta,beta)
+    writeBeta(args.beta,beta)
 
 
     if args.testdata is not None:
