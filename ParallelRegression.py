@@ -180,7 +180,11 @@ def test(data,beta):
 	The return value is MSE(β).
 
     """
-    pass
+    n = data.count()
+    mse = data.map(
+            lambda element: f(element[0], element[1], beta) / n
+    ).sum()
+    return mse
 
 
 
