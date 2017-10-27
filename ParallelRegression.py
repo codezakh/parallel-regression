@@ -159,7 +159,12 @@ def gradient(data,beta,lam = 0):
         The return value is an array containing ∇F.
 
     """
-    pass
+    n = data.count()
+    mse_gradient = data.map(
+        lambda element: localGradient(element[0], element[1], beta) / n
+    ).sum()
+    weights_gradient = 2 * lam * beta
+    return mse_gradient + weights_gradient
 
 def test(data,beta):
     """ Compute the mean square error
