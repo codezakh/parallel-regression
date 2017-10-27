@@ -45,6 +45,8 @@ class ParallelRegressionTestCase(unittest.TestCase):
         expected_gradient = PR.estimateGrad(
             lambda beta: PR.F(data, beta, lam),
             beta,
-            0.00001)
-        print(actual_gradient)
-        print(expected_gradient)
+            0.0000001)
+        print('actual_gradient: {}'.format(actual_gradient))
+        print('expected_gradient: {}'.format(expected_gradient))
+        for actual, expected in zip(actual_gradient, expected_gradient):
+            self.assertLess(abs(actual-expected), 0.0001)
