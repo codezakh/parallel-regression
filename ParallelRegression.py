@@ -240,7 +240,7 @@ def train(data,beta_0, lam,max_iter,eps):
         training_error = F(data, new_beta, lam)
         print '[{iterations}]{elapsed_time} F: {error}, Norm: {norm}'.format(
             iterations=current_iter,
-            elapsed_time=0,
+            elapsed_time=elapsed_time,
             error=training_error,
             norm=tolerance)
     return new_beta, tolerance, current_iter
